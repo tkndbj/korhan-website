@@ -167,19 +167,23 @@ async function boot() {
     return
   }
 
-  const tl = gsap.timeline({
-    defaults: { ease: 'power4.inOut' },
-    onComplete: () => {
+  // The intro tween that slid the words in may still be running (fast/cached
+  // loads) — kill it, or it fights the exit tween and pulls the words back.
+  gsap.killTweensOf(loaderWords)
+
+  const tl = gsap.timeline({ defaults: { ease: 'power4.inOut' } })
+
+  tl.to(loaderWords, { yPercent: -120, duration: 0.6, stagger: 0.07, overwrite: 'auto' })
+    .to('.loader__counter, .loader__bar, .loader__hint', { autoAlpha: 0, duration: 0.45 }, '<')
+    .to('.loader__curtain--l', { xPercent: -101, duration: 1.05 }, '-=0.3')
+    .to('.loader__curtain--r', { xPercent: 101, duration: 1.05 }, '<')
+    // the overlay is done the moment the curtains are open — remove it now,
+    // don't wait for the hero reveal to finish
+    .add(() => {
       loader.classList.add('is-hidden')
       gsap.set(loader, { display: 'none' })
       loader.setAttribute('aria-busy', 'false')
-    },
-  })
-
-  tl.to(loaderWords, { yPercent: -120, duration: 0.7, stagger: 0.08 })
-    .to('.loader__counter, .loader__bar, .loader__hint', { autoAlpha: 0, duration: 0.5 }, '<')
-    .to('.loader__curtain--l', { xPercent: -101, duration: 1.05 }, '-=0.25')
-    .to('.loader__curtain--r', { xPercent: 101, duration: 1.05 }, '<')
+    })
     // hero title chars flip up out of their line masks
     .to(heroChars, {
       y: 0,
