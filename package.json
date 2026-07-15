@@ -1,0 +1,21 @@
+{
+  "name": "taner-yolcu-aluminium-works",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Premium scroll-driven marketing site for Taner Yolcu Aluminium Works",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "extract-frames": "node scripts/extract-frames.mjs"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.18",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "vite": "^7.1.0"
+  }
+}

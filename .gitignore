@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+*.local
+.vite
+
+# Source video is large; keep it out of version control if you prefer.
+# Comment this out if you want the video tracked.
+*.mp4
+*.mov
+*.webm
+*.mkv
