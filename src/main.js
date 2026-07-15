@@ -140,21 +140,24 @@ async function boot() {
     gsap.from('.loader__ui', { autoAlpha: 0, y: 16, duration: 0.9, ease: 'power3.out', delay: 0.2 })
   }
 
-  const pct = { v: 0 }
-  await preloadFrames((p) => {
-    // Ease the displayed number toward real progress so it never jumps
-    gsap.to(pct, {
-      v: p * 100,
-      duration: 0.4,
-      ease: 'power1.out',
-      overwrite: true,
-      onUpdate: () => {
-        const n = Math.round(pct.v)
-        loaderPct.textContent = String(n).padStart(2, '0')
-        loaderFill.style.width = n + '%'
-      },
-    })
-  })
+  // The bar tracks whichever is slower: the real download or the minimum
+  // display time. Cached loads finish downloading instantly — without the
+  // time component the bar would just sit at 100% for three seconds.
+  const progress = { real: 0, shown: 0 }
+  const renderProgress = () => {
+    const timeP = prefersReducedMotion
+      ? 1
+      : Math.min((performance.now() - bootStart) / LOADER_MIN_MS, 1)
+    const target = Math.min(progress.real, timeP)
+    progress.shown += (target - progress.shown) * 0.14 // smooth approach
+    if (target === 1 && target - progress.shown < 0.002) progress.shown = 1
+    const n = Math.round(progress.shown * 100)
+    loaderPct.textContent = String(n).padStart(2, '0')
+    loaderFill.style.width = progress.shown * 100 + '%'
+  }
+  gsap.ticker.add(renderProgress)
+
+  await preloadFrames((p) => { progress.real = p })
 
   lastDrawn = -1
   drawFrame(0)
@@ -166,6 +169,10 @@ async function boot() {
       await new Promise((r) => setTimeout(r, LOADER_MIN_MS - elapsed))
     }
   }
+
+  gsap.ticker.remove(renderProgress)
+  loaderPct.textContent = '100'
+  loaderFill.style.width = '100%'
 
   initScroll()
   initEffects()
