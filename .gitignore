@@ -10,3 +10,6 @@ dist
 *.mov
 *.webm
 *.mkv
+
+# ...but the compressed loader video must ship with the site
+!public/tyc-logo.mp4

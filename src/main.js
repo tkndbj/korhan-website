@@ -109,10 +109,15 @@ async function preloadFrames(onProgress) {
 }
 
 /* -------------------------------------------------------------------------
-   Boot: loader -> curtain reveal -> hero intro
+   Boot: brand video loader -> upward wipe -> hero intro
    ------------------------------------------------------------------------- */
-const loaderWords = document.querySelectorAll('[data-loader-word]')
+const loaderVideo = document.getElementById('loaderVideo')
 const heroChars = []
+
+// Keep the logo video on screen at least this long so it registers,
+// even when everything is already cached. (The video itself is 5s and
+// freezes on its final frame if the network is slower than that.)
+const LOADER_MIN_MS = 3200
 
 function prepareHeroText() {
   document.querySelectorAll('[data-split]').forEach((el) => {
@@ -124,15 +129,15 @@ async function boot() {
   setCanvasSize()
   prepareHeroText()
 
-  // Loader words rise in while frames download
+  const bootStart = performance.now()
+
+  // Autoplay is set in the markup; nudge it for browsers that ignore the
+  // attribute. Muted + playsinline keeps iOS happy. Failure just leaves a
+  // still frame — acceptable.
+  if (loaderVideo) loaderVideo.play?.().catch(() => {})
+
   if (!prefersReducedMotion) {
-    gsap.from(loaderWords, {
-      yPercent: 120,
-      duration: 1,
-      stagger: 0.12,
-      ease: 'power3.out',
-      delay: 0.15,
-    })
+    gsap.from('.loader__ui', { autoAlpha: 0, y: 16, duration: 0.9, ease: 'power3.out', delay: 0.2 })
   }
 
   const pct = { v: 0 }
@@ -153,7 +158,14 @@ async function boot() {
 
   lastDrawn = -1
   drawFrame(0)
-  await new Promise((r) => setTimeout(r, 450)) // let the counter settle at 100
+
+  // Give the brand video its moment (skipped for reduced motion)
+  if (!prefersReducedMotion) {
+    const elapsed = performance.now() - bootStart
+    if (elapsed < LOADER_MIN_MS) {
+      await new Promise((r) => setTimeout(r, LOADER_MIN_MS - elapsed))
+    }
+  }
 
   initScroll()
   initEffects()
@@ -161,27 +173,23 @@ async function boot() {
   // --- Reveal choreography -------------------------------------------------
   if (prefersReducedMotion) {
     loader.classList.add('is-hidden')
-    gsap.set(loader, { autoAlpha: 0 })
+    gsap.set(loader, { autoAlpha: 0, display: 'none' })
     gsap.set(heroChars, { y: 0, rotateX: 0 })
+    if (loaderVideo) loaderVideo.pause()
     loader.setAttribute('aria-busy', 'false')
     return
   }
 
-  // The intro tween that slid the words in may still be running (fast/cached
-  // loads) — kill it, or it fights the exit tween and pulls the words back.
-  gsap.killTweensOf(loaderWords)
-
   const tl = gsap.timeline({ defaults: { ease: 'power4.inOut' } })
 
-  tl.to(loaderWords, { yPercent: -120, duration: 0.6, stagger: 0.07, overwrite: 'auto' })
-    .to('.loader__counter, .loader__bar, .loader__hint', { autoAlpha: 0, duration: 0.45 }, '<')
-    .to('.loader__curtain--l', { xPercent: -101, duration: 1.05 }, '-=0.3')
-    .to('.loader__curtain--r', { xPercent: 101, duration: 1.05 }, '<')
-    // the overlay is done the moment the curtains are open — remove it now,
-    // don't wait for the hero reveal to finish
+  tl.to('.loader__ui', { autoAlpha: 0, y: -12, duration: 0.45, ease: 'power2.in', overwrite: 'auto' })
+    // the whole loader wipes upward while the video gently scales — cinema cut
+    .to('.loader__video', { scale: 1.07, duration: 1.15, ease: 'power2.inOut' }, '<')
+    .to(loader, { clipPath: 'inset(0 0 100% 0)', duration: 1.15 }, '-=0.95')
     .add(() => {
       loader.classList.add('is-hidden')
       gsap.set(loader, { display: 'none' })
+      if (loaderVideo) { loaderVideo.pause(); loaderVideo.removeAttribute('src'); loaderVideo.load() }
       loader.setAttribute('aria-busy', 'false')
     })
     // hero title chars flip up out of their line masks
@@ -191,7 +199,7 @@ async function boot() {
       duration: 1.1,
       ease: 'power4.out',
       stagger: { each: 0.024, from: 'start' },
-    }, '-=0.55')
+    }, '-=0.5')
     .to('.hero__eyebrow, .hero__foot [data-reveal]', {
       opacity: 1,
       y: 0,

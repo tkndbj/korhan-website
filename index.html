@@ -19,17 +19,27 @@
     />
   </head>
   <body>
-    <!-- ===== Loader ===== -->
-    <div class="loader" id="loader" aria-live="polite" aria-busy="true">
-      <div class="loader__counter" id="loaderPct">00</div>
-      <div class="loader__center">
-        <span class="loader__word" data-loader-word>TANER&nbsp;YOLCU</span>
-        <span class="loader__word loader__word--serif" data-loader-word>aluminium works</span>
+    <!-- ===== Loader: brand video plays while the frame sequence downloads ===== -->
+    <div class="loader" id="loader" aria-live="polite" aria-busy="true" aria-label="Taner Yolcu Aluminium Works — loading">
+      <video
+        class="loader__video"
+        id="loaderVideo"
+        src="/tyc-logo.mp4"
+        muted
+        autoplay
+        playsinline
+        preload="auto"
+        disablepictureinpicture
+        aria-hidden="true"
+      ></video>
+      <div class="loader__shade" aria-hidden="true"></div>
+      <div class="loader__ui">
+        <div class="loader__bar"><div class="loader__bar-fill" id="loaderFill"></div></div>
+        <div class="loader__meta">
+          <span class="loader__hint">Preparing</span>
+          <span class="loader__pct"><span id="loaderPct">00</span>%</span>
+        </div>
       </div>
-      <div class="loader__bar"><div class="loader__bar-fill" id="loaderFill"></div></div>
-      <div class="loader__hint">Casting the sequence</div>
-      <div class="loader__curtain loader__curtain--l"></div>
-      <div class="loader__curtain loader__curtain--r"></div>
     </div>
 
     <!-- ===== Fixed cinematic stage: scrubbed frame sequence + WebGL particles ===== -->
