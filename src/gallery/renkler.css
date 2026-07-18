@@ -165,7 +165,7 @@ main,
 .hero__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(3rem, 11vw, 8.6rem);
+  font-size: clamp(2.2rem, 6.5vw, 5rem);
   line-height: 0.98;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -278,27 +278,20 @@ main,
 }
 
 .lab__frames {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: clamp(1rem, 2vw, 1.8rem);
-  align-items: end;
+  display: flex;
+  justify-content: center;
   padding-top: clamp(3rem, 7vh, 5rem);
 }
 
 .lab__frame {
+  width: min(100%, 860px);
+  aspect-ratio: 4 / 3;
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--bg-2);
   cursor: zoom-in;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
-}
-.lab__frame--a {
-  aspect-ratio: 4 / 3;
-}
-.lab__frame--b {
-  aspect-ratio: 3 / 4;
-  transform: translateY(-8%);
 }
 .lab__frame img {
   width: 100%;

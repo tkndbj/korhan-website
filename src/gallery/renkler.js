@@ -118,15 +118,12 @@ KUTU_PAGES.forEach(({ src, cap }) => {
 /* -------------------------------------------------------------------------
    Finish selection: crossfade frames + retint the page
    ------------------------------------------------------------------------- */
-const imgA = document.getElementById('imgA')
 const imgB = document.getElementById('imgB')
 const watermark = document.getElementById('labWatermark')
 const note = document.getElementById('labNote')
 let activeKey = null
 
 function applyFinish(f) {
-  imgA.src = f.a
-  imgA.alt = `${f.name} — anodize finiş`
   imgB.src = f.b
   imgB.alt = `${f.name} — anodize finiş, detay`
   watermark.textContent = f.name
@@ -290,10 +287,6 @@ function closeLightbox() {
   if (lenis) lenis.start()
 }
 
-document.getElementById('frameA').addEventListener('click', () => {
-  const f = FINISHES.find((x) => x.key === activeKey)
-  openLightbox(f.a, `${f.name} — anodize finiş`)
-})
 document.getElementById('frameB').addEventListener('click', () => {
   const f = FINISHES.find((x) => x.key === activeKey)
   openLightbox(f.b, `${f.name} — anodize finiş, detay`)
