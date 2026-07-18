@@ -30,6 +30,10 @@
 
 html {
   scroll-behavior: auto;
+  /* body-level overflow-x alone doesn't stop mobile horizontal panning —
+     the root element becomes the scroller; clip it (no scroll container) */
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 html.lenis,
 html.lenis body {
