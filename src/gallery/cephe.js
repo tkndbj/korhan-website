@@ -182,7 +182,12 @@ if (!prefersReducedMotion) {
   gsap.set(heroChars, { y: 0, rotateX: 0 })
 }
 
-// Image reveals: clip-path wipe + inner zoom-out + slow parallax
+// Image reveals: clip-path wipe + inner zoom-out + slow parallax.
+// On compact screens the shots are full-width and tall, so a mid-viewport
+// trigger feels late — reveal as soon as the shot enters instead.
+const isCompact = window.matchMedia('(max-width: 900px)').matches
+const revealStart = isCompact ? 'top bottom' : 'top 86%'
+
 document.querySelectorAll('.shot').forEach((shot) => {
   const img = shot.querySelector('.shot__img')
 
@@ -190,15 +195,15 @@ document.querySelectorAll('.shot').forEach((shot) => {
 
   gsap.to(shot, {
     clipPath: 'inset(0% 0 0% 0)',
-    duration: 1.2,
+    duration: isCompact ? 0.9 : 1.2,
     ease: 'power4.inOut',
-    scrollTrigger: { trigger: shot, start: 'top 86%', toggleActions: 'play none none none' },
+    scrollTrigger: { trigger: shot, start: revealStart, toggleActions: 'play none none none' },
   })
   gsap.to(img, {
     scale: 1,
-    duration: 1.6,
+    duration: isCompact ? 1.2 : 1.6,
     ease: 'power3.out',
-    scrollTrigger: { trigger: shot, start: 'top 86%', toggleActions: 'play none none none' },
+    scrollTrigger: { trigger: shot, start: revealStart, toggleActions: 'play none none none' },
   })
   gsap.fromTo(
     img,

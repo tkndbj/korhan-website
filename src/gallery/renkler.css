@@ -546,6 +546,12 @@ main,
   }
 }
 
+@media (max-width: 700px) {
+  .hero__title {
+    font-size: clamp(2.2rem, 10vw, 3rem);
+  }
+}
+
 @media (max-width: 640px) {
   .lab__frames {
     grid-template-columns: 1fr;

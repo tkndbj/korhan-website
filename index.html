@@ -78,8 +78,9 @@
     </div>
 
     <!-- ===== Chrome ===== -->
-    <header class="chrome">
-      <nav class="chrome__menu" aria-label="Products">
+    <header class="chrome" id="chrome">
+      <span class="chrome__brand">Taner Yolcu</span>
+      <nav class="chrome__menu" aria-label="Products" id="chromeMenu">
         <a class="chrome__menu-item" href="/gallery/cephe-dogramalari.html"
           >Cephe Doğramaları</a
         >
@@ -102,6 +103,17 @@
           >Özel Renkler ve Cam Renkleri</a
         >
       </nav>
+      <button
+        class="chrome__burger"
+        id="chromeBurger"
+        aria-label="Menü"
+        aria-expanded="false"
+        aria-controls="chromeMenu"
+      >
+        <span class="chrome__burger-bar"></span>
+        <span class="chrome__burger-bar"></span>
+        <span class="chrome__burger-bar"></span>
+      </button>
     </header>
 
     <div class="scroll-hint" id="scrollHint" aria-hidden="true">

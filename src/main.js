@@ -655,4 +655,26 @@ window.addEventListener('resize', () => {
 const yearEl = document.getElementById('year')
 if (yearEl) yearEl.textContent = new Date().getFullYear()
 
+/* -------------------------------------------------------------------------
+   Mobile menu (hamburger drawer)
+   ------------------------------------------------------------------------- */
+const chromeEl = document.getElementById('chrome')
+const burgerEl = document.getElementById('chromeBurger')
+if (chromeEl && burgerEl) {
+  const setMenu = (open) => {
+    chromeEl.classList.toggle('is-open', open)
+    burgerEl.setAttribute('aria-expanded', String(open))
+    if (lenis) { if (open) lenis.stop(); else lenis.start() }
+  }
+  burgerEl.addEventListener('click', () =>
+    setMenu(!chromeEl.classList.contains('is-open'))
+  )
+  chromeEl.querySelectorAll('.chrome__menu a').forEach((a) =>
+    a.addEventListener('click', () => setMenu(false))
+  )
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && chromeEl.classList.contains('is-open')) setMenu(false)
+  })
+}
+
 boot()
