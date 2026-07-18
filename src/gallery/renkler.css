@@ -557,12 +557,6 @@ main,
 }
 
 @media (max-width: 640px) {
-  .lab__frames {
-    grid-template-columns: 1fr;
-  }
-  .lab__frame--b {
-    transform: none;
-  }
   .kutu__row {
     grid-template-columns: 1fr;
   }
