@@ -15,7 +15,7 @@
 
     <!-- Fonts: Syne (display) + Instrument Serif (accent italic) + Space Grotesk (body). -->
     <!-- Critical: avoid unstyled flash while the bundled CSS loads.
-         The page stylesheet reveals <body class="home"> again via a class rule. -->
+         The page stylesheet reveals <body> again via a class rule. -->
     <style>
       html { background: #070708; color-scheme: dark; }
       body { visibility: hidden; }
@@ -27,7 +27,7 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="home">
     <!-- ===== Loader: brand video plays while the frame sequence downloads ===== -->
     <div
       class="loader"
