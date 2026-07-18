@@ -135,7 +135,8 @@ main,
   position: relative;
   min-height: 100svh;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
@@ -151,15 +152,20 @@ main,
 .hero__scrim {
   position: absolute;
   inset: 0;
+  /* even coverage so the centered copy stays readable over the video */
   background:
-    linear-gradient(180deg, rgba(10, 10, 11, 0.55) 0%, rgba(10, 10, 11, 0.1) 40%, rgba(10, 10, 11, 0.92) 100%);
+    linear-gradient(180deg, rgba(10, 10, 11, 0.6) 0%, rgba(10, 10, 11, 0.35) 50%, rgba(10, 10, 11, 0.85) 100%);
 }
 
 .hero__inner {
   position: relative;
   z-index: 2;
-  padding: 0 var(--pad) clamp(4rem, 10vh, 7rem);
-  max-width: 1100px;
+  padding: 0 var(--pad);
+  max-width: 900px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero__title {
