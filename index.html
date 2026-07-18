@@ -14,6 +14,12 @@
     />
 
     <!-- Fonts: Syne (display) + Instrument Serif (accent italic) + Space Grotesk (body). -->
+    <!-- Critical: avoid unstyled flash while the bundled CSS loads.
+         The page stylesheet reveals <body class="home"> again via a class rule. -->
+    <style>
+      html { background: #070708; color-scheme: dark; }
+      body { visibility: hidden; }
+    </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -73,20 +79,29 @@
 
     <!-- ===== Chrome ===== -->
     <header class="chrome">
-      <a class="chrome__brand" href="#top" data-magnetic>
-        <span class="chrome__mark">TY</span>
-        <span class="chrome__brandname"
-          >Taner&nbsp;Yolcu<em>aluminium works</em></span
+      <nav class="chrome__menu" aria-label="Products">
+        <a class="chrome__menu-item" href="/gallery/cephe-dogramalari.html"
+          >Cephe Doğramaları</a
         >
-      </a>
-      <nav class="chrome__nav" aria-label="Primary">
-        <a href="#craft" data-magnetic>Craft</a>
-        <a href="#system" data-magnetic>RW60</a>
-        <a href="#why" data-magnetic>Why us</a>
+        <a class="chrome__menu-item" href="/gallery/surme-dogramalari.html"
+          >Sürme Doğramaları</a
+        >
+        <a class="chrome__menu-item" href="/gallery/vitrin-dogramalari.html"
+          >Vitrin Doğramaları</a
+        >
+        <a class="chrome__menu-item" href="/gallery/cam-turleri.html"
+          >Cam Türleri</a
+        >
+        <a class="chrome__menu-item" href="/gallery/cam-korkuluklar.html"
+          >Cam Korkuluk ve Küpeşteler</a
+        >
+        <a class="chrome__menu-item" href="/gallery/gunes-kiricilar.html"
+          >Güneş Kırıcılar</a
+        >
+        <a class="chrome__menu-item" href="/gallery/ozel-renkler.html"
+          >Özel Renkler ve Cam Renkleri</a
+        >
       </nav>
-      <a class="chrome__cta" href="#contact" data-magnetic
-        ><span>Get a quote</span></a
-      >
     </header>
 
     <div class="scroll-hint" id="scrollHint" aria-hidden="true">
@@ -103,17 +118,12 @@
             <span class="eyebrow__dot"></span>Custom aluminium fabrication —
             Est. Nicosia
           </p>
-          <h1 class="hero__title" data-depth>
+          <h1 class="hero__title hero__title--brand" data-depth>
             <span class="hero__line"
-              ><span class="split" data-split>RAW METAL</span></span
-            >
-            <span class="hero__line hero__line--serif"
-              ><span class="split split--serif" data-split
-                >refined into</span
-              ></span
+              ><span class="split" data-split>Taner Yolcu</span></span
             >
             <span class="hero__line"
-              ><span class="split" data-split>ARCHITECTURE</span></span
+              ><span class="split" data-split>Aluminum Works</span></span
             >
           </h1>
           <div class="hero__foot">
@@ -144,39 +154,6 @@
           ><span class="marquee__sep">✦</span>
         </div>
       </div>
-
-      <!-- 02 · Manifesto (word-by-word scroll reveal with inline images) -->
-      <section class="panel panel--manifesto" data-panel="manifesto" id="craft">
-        <div class="panel__inner">
-          <p class="eyebrow" data-reveal>
-            <span class="eyebrow__dot"></span>01 — The craft
-          </p>
-          <p class="manifesto" data-manifesto>
-            Every profile begins as raw billet
-            <img
-              class="manifesto__img"
-              src="/img/profile-section.webp"
-              alt=""
-              loading="lazy"
-            />
-            cut, machined and anodised to a tenth of a millimetre
-            <img
-              class="manifesto__img"
-              src="/img/door-macro.webp"
-              alt=""
-              loading="lazy"
-            />
-            until the metal disappears into
-            <img
-              class="manifesto__img"
-              src="/img/facade-golden.webp"
-              alt=""
-              loading="lazy"
-            />
-            architecture.
-          </p>
-        </div>
-      </section>
 
       <!-- 03 · Services (hover image preview) -->
       <section class="panel panel--services" data-panel="services">
@@ -264,15 +241,15 @@
             <p class="eyebrow">
               <span class="eyebrow__dot"></span>03 — The system
             </p>
-            <h2 class="display display--giant">RW<em>60</em></h2>
+            <h2 class="display display--giant">Aluminum <em>Materials</em></h2>
             <p class="hpin__sub">One profile family. Every opening.</p>
           </header>
           <div class="htrack" data-htrack>
             <figure class="slide" data-slide>
               <div class="slide__media">
                 <img
-                  src="/img/facade-golden.webp"
-                  alt="RW60 curtain-wall facade at golden hour"
+                  src="/Website%20Resimleri%20ve%20Videolar%C4%B1/S%C3%BCrme%20Do%C4%9Framalar/t100/Kar%C5%9F%C4%B1dan%20kesit%20siyah..png"
+                  alt="Karşıdan kesit siyah"
                   data-slide-img
                 />
               </div>
@@ -285,8 +262,8 @@
             <figure class="slide slide--tall" data-slide>
               <div class="slide__media">
                 <img
-                  src="/img/facade-tower.webp"
-                  alt="RW60 facade viewed from below"
+                  src="/Website%20Resimleri%20ve%20Videolar%C4%B1/S%C3%BCrme%20Do%C4%9Framalar/t100/Oval%20Kenet%20duru%C5%9F.png"
+                  alt="Oval Kenet duruş"
                   data-slide-img
                 />
               </div>
@@ -299,8 +276,8 @@
             <figure class="slide" data-slide>
               <div class="slide__media">
                 <img
-                  src="/img/vasistas.webp"
-                  alt="RW60 awning windows open on a facade"
+                  src="/Website%20Resimleri%20ve%20Videolar%C4%B1/S%C3%BCrme%20Do%C4%9Framalar/RST116/image_1784114670962_d702e0bf.png"
+                  alt="RST116 detay"
                   data-slide-img
                 />
               </div>
@@ -313,8 +290,8 @@
             <figure class="slide slide--tall" data-slide>
               <div class="slide__media">
                 <img
-                  src="/img/profile-section.webp"
-                  alt="RW60 aluminium profile cross-section"
+                  src="/Website%20Resimleri%20ve%20Videolar%C4%B1/S%C3%BCrme%20Do%C4%9Framalar/3200%20seri/pervazl%C4%B1%202%20ray%20kasa.png"
+                  alt="Pervazlı 2 ray kasa"
                   data-slide-img
                 />
               </div>
@@ -327,8 +304,8 @@
             <figure class="slide slide--tall" data-slide>
               <div class="slide__media">
                 <img
-                  src="/img/door-macro.webp"
-                  alt="RW60 door handle macro detail"
+                  src="/Website%20Resimleri%20ve%20Videolar%C4%B1/S%C3%BCrme%20Do%C4%9Framalar/Kemerli%20ve%20Karolajl%C4%B1%20Is%C4%B1%20yal%C4%B1t%C4%B1ml%C4%B1%20%28t100%20seri%29/Orta%20Kay%C4%B1t%20Detay.png"
+                  alt="Orta Kayıt Detay"
                   data-slide-img
                 />
               </div>
@@ -342,38 +319,6 @@
               <a class="slide__cta" href="#contact" data-magnetic
                 ><span>Spec it on<br />your project&nbsp;→</span></a
               >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 05 · Stats -->
-      <section class="panel panel--stats" data-panel="stats">
-        <div class="panel__inner">
-          <div class="stats">
-            <div class="stat" data-reveal>
-              <span class="stat__value"
-                ><span data-count="25">0</span><sup>+</sup></span
-              >
-              <span class="stat__label">Years at the bench</span>
-            </div>
-            <div class="stat" data-reveal>
-              <span class="stat__value"
-                ><span data-count="400">0</span><sup>+</sup></span
-              >
-              <span class="stat__label">Projects delivered</span>
-            </div>
-            <div class="stat" data-reveal>
-              <span class="stat__value"
-                ><span data-count="60">0</span><sup>mm</sup></span
-              >
-              <span class="stat__label">System depth</span>
-            </div>
-            <div class="stat" data-reveal>
-              <span class="stat__value"
-                ><span data-count="100">0</span><sup>%</sup></span
-              >
-              <span class="stat__label">Recyclable alloy</span>
             </div>
           </div>
         </div>

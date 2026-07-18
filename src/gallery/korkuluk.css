@@ -1,0 +1,479 @@
+/* =========================================================================
+   Cam Korkuluk ve Küpeşteler — "The Stack"
+   Charcoal + champagne. Full-screen collection cards stack on top of each
+   other with scroll (previous card sinks, scales and dims). Each card:
+   media background (image or video), collection copy and a marquee thumb
+   rail. Thumbs open the lightbox.
+   ========================================================================= */
+
+:root {
+  --bg: #0b0b0d;
+  --bg-2: #131316;
+  --ink: #ede9df;
+  --ink-dim: rgba(237, 233, 223, 0.6);
+  --ink-faint: rgba(237, 233, 223, 0.3);
+  --champagne: #d8c49a;
+  --gold: #d8a24a;
+  --line: rgba(237, 233, 223, 0.12);
+  --font-display: 'Syne', sans-serif;
+  --font-serif: 'Instrument Serif', serif;
+  --font-body: 'Space Grotesk', sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --pad: clamp(1.25rem, 4vw, 4rem);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body.korkuluk {
+  visibility: visible; /* releases the inline anti-FOUC hide */
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---------------------------------------------------------------- chrome */
+.chrome {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(1rem, 2.5vw, 1.75rem) var(--pad);
+  mix-blend-mode: difference;
+}
+
+.chrome__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+.chrome__back-arrow {
+  transition: transform 0.35s var(--ease-out);
+}
+.chrome__back:hover .chrome__back-arrow {
+  transform: translateX(-4px);
+}
+
+.chrome__tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(237, 233, 223, 0.78);
+}
+
+/* ----------------------------------------------------------------- stack */
+.stack {
+  position: relative;
+}
+
+.card {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  will-change: transform;
+}
+
+/* full-card veil used for the crossfade between stacked cards */
+.card__fade {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: var(--bg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card__media {
+  position: absolute;
+  inset: 0;
+}
+.card__media img,
+.card__media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(11, 11, 13, 0.5) 0%, rgba(11, 11, 13, 0.05) 34%, rgba(11, 11, 13, 0.88) 100%);
+}
+
+.card__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 var(--pad) clamp(1.6rem, 4vh, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.2rem, 3vh, 2rem);
+}
+
+.card__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.card__no {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  color: var(--champagne);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.7rem;
+  display: block;
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 4.8rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  max-width: 16ch;
+}
+.card__title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--champagne);
+}
+
+.card__desc {
+  margin-top: 0.8rem;
+  max-width: 34rem;
+  color: var(--ink-dim);
+  line-height: 1.65;
+  font-size: clamp(0.88rem, 1.2vw, 1rem);
+}
+
+.card__count {
+  flex: none;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 0.55rem 1.1rem;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+  background: rgba(11, 11, 13, 0.35);
+}
+
+/* thumb rail: an auto-drifting marquee of thumbnails */
+.card__rail {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.card__rail-track {
+  display: flex;
+  gap: 0.9rem;
+  width: max-content;
+  will-change: transform;
+}
+
+.thumb {
+  flex: none;
+  width: clamp(150px, 16vw, 230px);
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(237, 233, 223, 0.18);
+  cursor: zoom-in;
+  padding: 0;
+  background: none;
+  transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+.thumb:hover {
+  border-color: var(--champagne);
+  transform: translateY(-4px);
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* intro card variant */
+.card--intro {
+  align-items: center;
+}
+.card--intro .card__inner {
+  align-items: center;
+  text-align: center;
+  padding-bottom: clamp(4rem, 10vh, 7rem);
+}
+.card--intro .card__title {
+  font-size: clamp(2.6rem, 9vw, 7.4rem);
+  max-width: none;
+}
+.card--intro .card__desc {
+  margin-inline: auto;
+}
+
+.card__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.card__eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--champagne);
+}
+
+.card__scrolldown {
+  position: absolute;
+  bottom: clamp(1.6rem, 4vh, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.card__scrolldown-line {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(180deg, var(--champagne), transparent);
+  animation: sink 2.2s ease-in-out infinite;
+}
+@keyframes sink {
+  0%, 100% { transform: scaleY(0.4); transform-origin: 0 0; opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ----------------------------------------------------------------- outro */
+.outro {
+  position: relative;
+  z-index: 5;
+  padding: clamp(5rem, 12vh, 9rem) var(--pad) 0;
+  text-align: center;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+}
+
+.outro__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 6.5vw, 5rem);
+  text-transform: uppercase;
+  line-height: 1.04;
+  margin-bottom: 2.2rem;
+}
+.outro__title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  color: var(--champagne);
+}
+
+.outro__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.outro__cta {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  border-radius: 99px;
+  padding: 1.1rem 2.2rem;
+  text-decoration: none;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+}
+.outro__cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(216, 162, 74, 0.35);
+}
+
+.outro__ghost {
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink-faint);
+  padding-bottom: 0.25rem;
+  transition: color 0.3s;
+}
+.outro__ghost:hover {
+  color: var(--ink);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(3rem, 8vh, 5rem) 0 1.6rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* -------------------------------------------------------------- lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 11, 13, 0.94);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.lightbox__figure {
+  max-width: min(92vw, 1400px);
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.lightbox__cap {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-align: center;
+}
+
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  z-index: 2;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: border-color 0.3s, background 0.3s;
+}
+.lightbox__close:hover,
+.lightbox__nav:hover {
+  border-color: var(--champagne);
+  background: rgba(216, 196, 154, 0.12);
+}
+
+.lightbox__close {
+  top: clamp(1rem, 3vw, 2rem);
+  right: clamp(1rem, 3vw, 2rem);
+}
+.lightbox__nav--prev {
+  left: clamp(0.6rem, 2.5vw, 2rem);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lightbox__nav--next {
+  right: clamp(0.6rem, 2.5vw, 2rem);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ------------------------------------------------------------ responsive */
+@media (max-width: 900px) {
+  .card__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .thumb {
+    width: clamp(120px, 34vw, 180px);
+  }
+  .lightbox__nav {
+    width: 40px;
+    height: 40px;
+  }
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+  }
+}
+
+/* --------------------------------------------------------- reduced motion */
+.reduce-motion .card__scrolldown-line {
+  animation: none;
+}

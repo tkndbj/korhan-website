@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#05070b" />
+    <title>Vitrin Doğramaları — Taner Yolcu Aluminium Works</title>
+    <meta
+      name="description"
+      content="C60 vitrin doğramaları — dükkan cepheleri, kapı ve cam kombinasyonları. Taner Yolcu Aluminium Works galerisi."
+    />
+    <!-- Critical: avoid unstyled flash while the bundled CSS loads.
+         The page stylesheet reveals <body> again via a class rule. -->
+    <style>
+      html { background: #05070b; color-scheme: dark; }
+      body { visibility: hidden; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="vitrin">
+    <!-- Chrome -->
+    <header class="chrome">
+      <a class="chrome__back" href="/"
+        ><span class="chrome__back-arrow">←</span> Taner Yolcu</a
+      >
+      <span class="chrome__tag">Vitrin Doğramaları</span>
+    </header>
+
+    <main>
+      <!-- ===== Hero: title + RW60 video ===== -->
+      <section class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow" data-fade>
+            <span class="eyebrow__dot"></span>C60 — Kapı &amp; dükkan cepheleri
+          </p>
+          <h1 class="hero__title">
+            <span class="hero__line"><span data-split>Vitrin</span></span>
+            <span class="hero__line hero__line--accent"
+              ><span data-split>Doğramaları</span></span
+            >
+          </h1>
+          <p class="hero__lede" data-fade>
+            Bir cadde düşünün — her vitrin bir davet. C60 profilleriyle
+            kurulmuş dükkan cepheleri arasında yürüyün.
+          </p>
+          <p class="hero__walk" data-fade>Kaydırın, cadde ilerlesin →</p>
+        </div>
+        <div class="hero__media" data-fade>
+          <video
+            id="heroVideo"
+            muted
+            autoplay
+            loop
+            playsinline
+            preload="auto"
+            disablepictureinpicture
+            aria-hidden="true"
+          ></video>
+          <span class="hero__media-tag">RW60 · C60 sistem</span>
+        </div>
+      </section>
+
+      <!-- ===== The Street: pinned horizontal walk ===== -->
+      <section class="street" id="street">
+        <div class="street__pin" data-street-pin>
+          <div class="street__head">
+            <span class="street__label">Dükkan Örnekleri</span>
+            <span class="street__progress"
+              ><span id="streetNow">01</span> / <span id="streetTotal">09</span></span
+            >
+          </div>
+          <div class="street__track" data-street-track></div>
+          <div class="street__ground" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <!-- ===== Kapı & Cepheler: big plates ===== -->
+      <section class="plates">
+        <p class="eyebrow" data-reveal>
+          <span class="eyebrow__dot"></span>Kapı ve dükkan cepheleri
+        </p>
+        <h2 class="plates__title" data-reveal>
+          C60 — kapılar &amp; <em>cam kombinasyonları</em>
+        </h2>
+        <div class="plates__list" id="plates"></div>
+      </section>
+
+      <!-- ===== Outro ===== -->
+      <section class="outro">
+        <h2 class="outro__title">Vitrininizi <em>parlatalım.</em></h2>
+        <div class="outro__actions">
+          <a class="outro__cta" href="/#contact">Teklif al →</a>
+          <a class="outro__ghost" href="/">Ana sayfa</a>
+        </div>
+        <footer class="footer">
+          <span>© Taner Yolcu Aluminium Works</span>
+          <span>Vitrin Doğramaları</span>
+        </footer>
+      </section>
+    </main>
+
+    <!-- ===== Lightbox ===== -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox__close" id="lightboxClose" aria-label="Kapat">✕</button>
+      <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Önceki">←</button>
+      <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Sonraki">→</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+        <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+      </figure>
+    </div>
+
+    <script type="module" src="/src/gallery/vitrin.js"></script>
+  </body>
+</html>

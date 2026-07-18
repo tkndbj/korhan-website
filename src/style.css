@@ -49,6 +49,10 @@ body {
   overflow-x: clip;
 }
 
+body.home {
+  visibility: visible; /* releases the inline anti-FOUC hide */
+}
+
 ::selection {
   background: var(--gold);
   color: #0a0a0a;
@@ -155,6 +159,12 @@ a {
   pointer-events: none;
 }
 
+/* Returning visits skip the brand video — only the slim bar flashes by */
+.loader--skip .loader__video,
+.loader--skip .loader__shade {
+  display: none;
+}
+
 /* =========================================================================
    Fixed stage (canvas sequence + particles + treatments)
    ========================================================================= */
@@ -215,119 +225,56 @@ a {
   z-index: 50;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1.5rem;
   padding: clamp(1rem, 2.5vw, 1.75rem) var(--pad);
-  mix-blend-mode: difference;
+  background: rgba(28, 28, 30, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.chrome__brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.chrome__mark {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid rgba(236, 231, 221, 0.5);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-}
-
-.chrome__brandname {
+.chrome__menu {
   display: flex;
-  flex-direction: column;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.82rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 2.5vw, 2.25rem);
+}
+
+.chrome__menu-item {
+  font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  line-height: 1.3;
+  color: #ffffff;
+  white-space: nowrap;
 }
 
-.chrome__brandname em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
-  text-transform: none;
-  color: rgba(236, 231, 221, 0.65);
-}
-
-.chrome__nav {
-  display: flex;
-  gap: clamp(1.25rem, 3vw, 2.75rem);
-}
-
-.chrome__nav a {
+a.chrome__menu-item {
   position: relative;
-  font-size: 0.74rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: rgba(236, 231, 221, 0.75);
-  padding: 0.4rem 0;
-  transition: color 0.3s;
+  text-decoration: none;
+  transition: color 0.3s var(--ease-out);
 }
 
-.chrome__nav a::after {
+a.chrome__menu-item::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0;
-  width: 100%;
+  right: 0;
+  bottom: -5px;
   height: 1px;
-  background: currentColor;
+  background: var(--gold);
   transform: scaleX(0);
-  transform-origin: 100% 50%;
-  transition: transform 0.45s var(--ease-out);
+  transform-origin: 0 50%;
+  transition: transform 0.35s var(--ease-out);
 }
 
-.chrome__nav a:hover {
+a.chrome__menu-item:hover {
   color: var(--ink);
 }
-.chrome__nav a:hover::after {
+
+a.chrome__menu-item:hover::after {
   transform: scaleX(1);
-  transform-origin: 0 50%;
-}
-
-.chrome__cta {
-  position: relative;
-  overflow: hidden;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid rgba(236, 231, 221, 0.45);
-  border-radius: 999px;
-  font-size: 0.72rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-}
-
-.chrome__cta span {
-  position: relative;
-  z-index: 1;
-  transition: color 0.35s;
-}
-
-.chrome__cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--ink);
-  transform: translateY(101%);
-  transition: transform 0.45s var(--ease-out);
-  border-radius: inherit;
-}
-
-.chrome__cta:hover::before {
-  transform: translateY(0);
-}
-.chrome__cta:hover span {
-  color: #0a0a0a;
 }
 
 /* =========================================================================
@@ -502,6 +449,12 @@ html.reduce-motion [data-reveal] {
   letter-spacing: -0.01em;
   text-transform: uppercase;
   transform-style: preserve-3d;
+}
+
+.hero__title--brand {
+  font-size: clamp(1.9rem, 5vw, 4rem);
+  text-transform: none;
+  letter-spacing: 0.005em;
 }
 
 .hero__line {
@@ -851,8 +804,8 @@ html.reduce-motion .service {
 }
 
 .slide--tall .slide__media {
-  width: clamp(280px, 30vw, 440px);
-  aspect-ratio: 3 / 4;
+  width: clamp(420px, 52vw, 780px);
+  aspect-ratio: 16 / 10;
 }
 
 .slide__media img {
@@ -1155,7 +1108,6 @@ html.reduce-motion .service {
   .service { grid-template-columns: 3rem 1fr 2rem; }
   .service__desc { display: none; }
   .contact-grid { grid-template-columns: 1fr; }
-  .chrome__nav { display: none; }
   .hero__foot { flex-direction: column; align-items: flex-start; }
   .hero__coords { text-align: left; flex-direction: row; gap: 1.25rem; }
   .service-preview { display: none; }
@@ -1163,10 +1115,10 @@ html.reduce-motion .service {
 
 @media (max-width: 600px) {
   .slide__media { width: 78vw; }
-  .slide--tall .slide__media { width: 62vw; }
+  .slide--tall .slide__media { width: 78vw; }
   .footer { flex-direction: column; gap: 0.4rem; }
   .footer__mid { display: none; }
-  .chrome__brandname { display: none; }
+  .chrome__menu-item { font-size: 0.62rem; letter-spacing: 0.16em; }
 }
 
 /* Reduced motion: neutralize decorative animation */

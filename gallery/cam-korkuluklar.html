@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0b0b0d" />
+    <title>Cam Korkuluk ve Küpeşteler — Taner Yolcu Aluminium Works</title>
+    <meta
+      name="description"
+      content="Cam korkuluk ve küpeşte sistemleri — kare dikmeli, kütüklü kapaklı ve yuvarlak dikmeli koleksiyonlar. Taner Yolcu Aluminium Works galerisi."
+    />
+    <!-- Critical: avoid unstyled flash while the bundled CSS loads.
+         The page stylesheet reveals <body> again via a class rule. -->
+    <style>
+      html { background: #0b0b0d; color-scheme: dark; }
+      body { visibility: hidden; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="korkuluk">
+    <!-- Chrome -->
+    <header class="chrome">
+      <a class="chrome__back" href="/"
+        ><span class="chrome__back-arrow">←</span> Taner Yolcu</a
+      >
+      <span class="chrome__tag">Cam Korkuluk ve Küpeşteler</span>
+    </header>
+
+    <!-- ===== The stack: full-screen cards piling on each other ===== -->
+    <main class="stack" id="stack"></main>
+
+    <!-- ===== Outro ===== -->
+    <section class="outro">
+      <h2 class="outro__title">Boşluğa <em>güven</em> gelsin.</h2>
+      <div class="outro__actions">
+        <a class="outro__cta" href="/#contact">Teklif al →</a>
+        <a class="outro__ghost" href="/">Ana sayfa</a>
+      </div>
+      <footer class="footer">
+        <span>© Taner Yolcu Aluminium Works</span>
+        <span>Cam Korkuluk ve Küpeşteler</span>
+      </footer>
+    </section>
+
+    <!-- ===== Lightbox ===== -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox__close" id="lightboxClose" aria-label="Kapat">✕</button>
+      <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Önceki">←</button>
+      <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Sonraki">→</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+        <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+      </figure>
+    </div>
+
+    <script type="module" src="/src/gallery/korkuluk.js"></script>
+  </body>
+</html>

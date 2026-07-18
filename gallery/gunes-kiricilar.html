@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0a0906" />
+    <title>Güneş Kırıcılar — Taner Yolcu Aluminium Works</title>
+    <meta
+      name="description"
+      content="Güneş kırıcı lamel sistemleri — villa ve ofis uygulamaları, kesitler ve montaj detayları. Taner Yolcu Aluminium Works galerisi."
+    />
+    <!-- Critical: avoid unstyled flash while the bundled CSS loads.
+         The page stylesheet reveals <body> again via a class rule. -->
+    <style>
+      html { background: #0a0906; color-scheme: dark; }
+      body { visibility: hidden; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="gunes">
+    <!-- Chrome -->
+    <header class="chrome">
+      <a class="chrome__back" href="/"
+        ><span class="chrome__back-arrow">←</span> Taner Yolcu</a
+      >
+      <span class="chrome__tag">Güneş Kırıcılar</span>
+    </header>
+
+    <!-- ===== Fixed louvre stage ===== -->
+    <div class="stage" id="stage" aria-hidden="true">
+      <div class="stage__base" id="stageBase"></div>
+      <div class="stage__strips" id="stageStrips"></div>
+      <div class="stage__scrim"></div>
+
+      <!-- Sun path -->
+      <svg class="sunpath" id="sunpath" viewBox="0 0 100 56" preserveAspectRatio="none">
+        <path
+          id="sunArc"
+          d="M -4 54 Q 50 -8 104 54"
+          fill="none"
+          stroke="rgba(216, 162, 74, 0.28)"
+          stroke-width="0.18"
+          stroke-dasharray="0.9 1.3"
+        />
+      </svg>
+      <div class="sun" id="sun"></div>
+
+      <!-- Slide copy -->
+      <div class="hud">
+        <div class="hud__text" id="hudText">
+          <p class="hud__kicker" id="hudKicker"></p>
+          <h1 class="hud__title" id="hudTitle"></h1>
+          <p class="hud__sub" id="hudSub"></p>
+        </div>
+        <div class="hud__meta">
+          <span class="hud__count" id="hudCount"></span>
+          <span class="hud__angle"
+            >Lamel <b id="hudAngle">15</b>°</span
+          >
+        </div>
+      </div>
+
+      <div class="stage__hint" id="stageHint">
+        <span>Kaydır</span><span class="stage__hint-line"></span>
+      </div>
+    </div>
+
+    <!-- Scroll runway for the deck (1 viewport per slide) -->
+    <div class="deck" id="deck"></div>
+
+    <!-- ===== Technical section (scrolls over the stage) ===== -->
+    <main class="after">
+      <section class="tech">
+        <p class="eyebrow" data-reveal>
+          <span class="eyebrow__dot"></span>Teknik — lamel sistemi
+        </p>
+        <h2 class="tech__title" data-reveal>
+          Işığı <em>derecesiyle</em> yönetin.
+        </h2>
+        <p class="tech__lede" data-reveal>
+          Badem ve bıçak ağızlı lamel kesitleri, derece ayarı ve montaj
+          detayları — sistemin arkasındaki mühendislik.
+        </p>
+
+        <div class="tech__grid" id="techGrid"></div>
+
+        <div class="tech__video" data-reveal>
+          <video
+            id="techVideo"
+            muted
+            autoplay
+            loop
+            playsinline
+            preload="metadata"
+            disablepictureinpicture
+          ></video>
+          <span class="tech__video-tag">Lamel animasyonu</span>
+        </div>
+      </section>
+
+      <section class="outro">
+        <h2 class="outro__title">Gölgeyi <em>tasarlayalım.</em></h2>
+        <div class="outro__actions">
+          <a class="outro__cta" href="/#contact">Teklif al →</a>
+          <a class="outro__ghost" href="/">Ana sayfa</a>
+        </div>
+        <footer class="footer">
+          <span>© Taner Yolcu Aluminium Works</span>
+          <span>Güneş Kırıcılar</span>
+        </footer>
+      </section>
+    </main>
+
+    <!-- ===== Lightbox (technical images) ===== -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox__close" id="lightboxClose" aria-label="Kapat">✕</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+        <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+      </figure>
+    </div>
+
+    <script type="module" src="/src/gallery/gunes.js"></script>
+  </body>
+</html>

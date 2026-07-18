@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#070708" />
+    <title>Cephe Doğramaları — Taner Yolcu Aluminium Works</title>
+    <meta
+      name="description"
+      content="Kapaklı cephe sistemleri — müstakil villa ve yüksek kat uygulamaları. Taner Yolcu Aluminium Works cephe doğramaları galerisi."
+    />
+    <!-- Critical: avoid unstyled flash while the bundled CSS loads.
+         The page stylesheet reveals <body> again via a class rule. -->
+    <style>
+      html { background: #070708; color-scheme: dark; }
+      body { visibility: hidden; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="cephe">
+    <!-- Scroll progress -->
+    <div class="progress" aria-hidden="true">
+      <div class="progress__fill" id="progressFill"></div>
+    </div>
+
+    <!-- Chrome -->
+    <header class="chrome">
+      <a class="chrome__back" href="/" data-back
+        ><span class="chrome__back-arrow">←</span> Taner Yolcu</a
+      >
+      <span class="chrome__tag">Cephe Doğramaları</span>
+    </header>
+
+    <main>
+      <!-- ===== Hero: fullscreen video ===== -->
+      <section class="hero">
+        <video
+          class="hero__video"
+          id="heroVideo"
+          muted
+          autoplay
+          loop
+          playsinline
+          preload="auto"
+          disablepictureinpicture
+          aria-hidden="true"
+        ></video>
+        <div class="hero__scrim" aria-hidden="true"></div>
+        <div class="hero__inner">
+          <p class="eyebrow" data-hero-fade>
+            <span class="eyebrow__dot"></span>Koleksiyon 01 — R50 Sistemi
+          </p>
+          <h1 class="hero__title">
+            <span class="hero__line"><span data-split>Cephe</span></span>
+            <span class="hero__line"
+              ><span data-split>Doğramaları</span></span
+            >
+          </h1>
+          <p class="hero__lede" data-hero-fade>
+            Kapaklı cephe sistemleri — binanın yüzünü tanımlayan, milimetrik
+            hassasiyetle işlenmiş alüminyum hatlar.
+          </p>
+        </div>
+        <div class="hero__hint" data-hero-fade aria-hidden="true">
+          <span>Keşfet</span><span class="hero__hint-line"></span>
+        </div>
+      </section>
+
+      <!-- ===== Chapters (grids are populated by JS) ===== -->
+      <section class="chapter" data-chapter="villa">
+        <div class="chapter__side">
+          <div class="chapter__sticky">
+            <span class="chapter__no">01</span>
+            <h2 class="chapter__title">
+              Kapaklı Cephe<br /><em>Müstakil Villa</em>
+            </h2>
+            <p class="chapter__desc">
+              Villa ölçeğinde kapaklı cephe uygulamaları — geniş cam
+              yüzeyler, ince görünüm hatları ve mimariyle bütünleşen
+              detaylar.
+            </p>
+            <span class="chapter__count" data-chapter-count></span>
+          </div>
+        </div>
+        <div class="chapter__grid" data-chapter-grid></div>
+      </section>
+
+      <div class="strip" aria-hidden="true">
+        <div class="strip__track" data-strip-track>
+          <span class="strip__item">R50</span><span class="strip__sep">✦</span>
+          <span class="strip__item strip__item--outline">Kapaklı Cephe</span
+          ><span class="strip__sep">✦</span>
+          <span class="strip__item">Structural Glazing</span
+          ><span class="strip__sep">✦</span>
+        </div>
+      </div>
+
+      <section class="chapter chapter--flip" data-chapter="tower">
+        <div class="chapter__side">
+          <div class="chapter__sticky">
+            <span class="chapter__no">02</span>
+            <h2 class="chapter__title">
+              Kapaklı Cephe<br /><em>Yüksek Kat</em>
+            </h2>
+            <p class="chapter__desc">
+              Yüksek kat kaplamalarında R50 kapaklı cephe — dikey ritim,
+              kesit detayları ve renk varyantlarıyla.
+            </p>
+            <span class="chapter__count" data-chapter-count></span>
+          </div>
+        </div>
+        <div class="chapter__grid" data-chapter-grid></div>
+      </section>
+
+      <!-- ===== Outro ===== -->
+      <section class="outro">
+        <p class="eyebrow" data-reveal>
+          <span class="eyebrow__dot"></span>Projeniz için
+        </p>
+        <h2 class="outro__title" data-reveal>
+          Cepheni <em>birlikte</em><br />şekillendirelim.
+        </h2>
+        <div class="outro__actions" data-reveal>
+          <a class="outro__cta" href="/#contact">Teklif al →</a>
+          <a class="outro__ghost" href="/">Ana sayfa</a>
+        </div>
+        <footer class="footer">
+          <span>© Taner Yolcu Aluminium Works</span>
+          <span>Cephe Doğramaları</span>
+        </footer>
+      </section>
+    </main>
+
+    <!-- ===== Lightbox ===== -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox__close" id="lightboxClose" aria-label="Kapat">
+        ✕
+      </button>
+      <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Önceki">←</button>
+      <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Sonraki">→</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+        <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+      </figure>
+    </div>
+
+    <script type="module" src="/src/gallery/cephe.js"></script>
+  </body>
+</html>

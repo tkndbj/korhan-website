@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#060a0c" />
+    <title>Cam Türleri — Taner Yolcu Aluminium Works</title>
+    <meta
+      name="description"
+      content="Cam türleri ve varyantları — laminasyonlu, füme, bronz ve daha fazlası. Taner Yolcu Aluminium Works cam galerisi."
+    />
+    <!-- Critical: avoid unstyled flash while the bundled CSS loads.
+         The page stylesheet reveals <body> again via a class rule. -->
+    <style>
+      html { background: #060a0c; color-scheme: dark; }
+      body { visibility: hidden; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="cam">
+    <!-- Chrome -->
+    <header class="chrome">
+      <a class="chrome__back" href="/"
+        ><span class="chrome__back-arrow">←</span> Taner Yolcu</a
+      >
+      <span class="chrome__tag">Cam Türleri</span>
+    </header>
+
+    <!-- ===== Scrub: video scrubbed by scroll ===== -->
+    <section class="scrub" id="scrub">
+      <div class="scrub__stage" data-scrub-stage>
+        <canvas class="scrub__canvas" id="scrubCanvas" aria-hidden="true"></canvas>
+        <div class="scrub__scrim"></div>
+        <div class="scrub__ui">
+          <p class="eyebrow" data-fade>
+            <span class="eyebrow__dot"></span>Cam varyantları
+          </p>
+          <h1 class="scrub__title">
+            <span class="scrub__line"><span data-split>Cam</span></span>
+            <span class="scrub__line scrub__line--accent"
+              ><span data-split>Türleri</span></span
+            >
+          </h1>
+          <p class="scrub__lede" data-fade>
+            Kaydırın — cam varyantları sizinle birlikte aksın.
+          </p>
+        </div>
+        <div class="scrub__meter" aria-hidden="true">
+          <svg viewBox="0 0 44 44" class="scrub__ring">
+            <circle cx="22" cy="22" r="19" class="scrub__ring-bg" />
+            <circle cx="22" cy="22" r="19" class="scrub__ring-fill" id="scrubRing" />
+          </svg>
+          <span class="scrub__pct" id="scrubPct">0%</span>
+        </div>
+      </div>
+    </section>
+
+    <main class="after">
+      <!-- ===== Fan: draggable open/close comparison ===== -->
+      <section class="fan">
+        <p class="eyebrow" data-reveal>
+          <span class="eyebrow__dot"></span>Renk yelpazesi
+        </p>
+        <h2 class="fan__title" data-reveal>
+          Yelpazeyi <em>siz</em> açın.
+        </h2>
+        <p class="fan__lede" data-reveal>
+          Tutamağı sürükleyin — kapalı yelpazeden açık yelpazeye geçin,
+          cam renklerinin tamamını görün.
+        </p>
+
+        <div class="fan__stage" id="fanStage" data-reveal>
+          <img
+            class="fan__img fan__img--closed"
+            id="fanClosed"
+            alt="Cam renk yelpazesi — kapalı"
+            draggable="false"
+          />
+          <img
+            class="fan__img fan__img--open"
+            id="fanOpen"
+            alt="Cam renk yelpazesi — açık"
+            draggable="false"
+          />
+          <div class="fan__handle" id="fanHandle" role="slider" tabindex="0"
+            aria-label="Yelpaze açıklığı" aria-valuemin="0" aria-valuemax="100" aria-valuenow="18">
+            <span class="fan__handle-line"></span>
+            <span class="fan__handle-knob">⟷</span>
+          </div>
+          <span class="fan__tag fan__tag--left">Kapalı</span>
+          <span class="fan__tag fan__tag--right">Açık</span>
+        </div>
+      </section>
+
+      <!-- ===== Türler plate ===== -->
+      <section class="types">
+        <p class="eyebrow" data-reveal>
+          <span class="eyebrow__dot"></span>Katalog
+        </p>
+        <h2 class="types__title" data-reveal>Tüm <em>türler.</em></h2>
+        <figure class="types__plate" id="typesPlate" data-reveal>
+          <img id="typesImg" alt="Cam türleri katalog görseli" loading="lazy" decoding="async" />
+          <figcaption class="types__cap">
+            Laminasyonlu · Füme · Bronz · Şeffaf — tek bakışta
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- ===== Outro ===== -->
+      <section class="outro">
+        <h2 class="outro__title">Doğru camı <em>seçelim.</em></h2>
+        <div class="outro__actions">
+          <a class="outro__cta" href="/#contact">Teklif al →</a>
+          <a class="outro__ghost" href="/">Ana sayfa</a>
+        </div>
+        <footer class="footer">
+          <span>© Taner Yolcu Aluminium Works</span>
+          <span>Cam Türleri</span>
+        </footer>
+      </section>
+    </main>
+
+    <!-- ===== Lightbox ===== -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox__close" id="lightboxClose" aria-label="Kapat">✕</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+        <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+      </figure>
+    </div>
+
+    <script type="module" src="/src/gallery/cam.js"></script>
+  </body>
+</html>

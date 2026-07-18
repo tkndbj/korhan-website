@@ -119,6 +119,14 @@ const heroChars = []
 // freezes on its final frame if the network is slower than that.)
 const LOADER_MIN_MS = 3200
 
+// Returning visitors (e.g. navigating back from a gallery page) have the
+// frames cached and have already seen the brand moment — skip the video
+// and minimum display time so the loader just flashes through.
+const RETURNING = (() => {
+  try { return sessionStorage.getItem('tyc-visited') === '1' } catch { return false }
+})()
+try { sessionStorage.setItem('tyc-visited', '1') } catch { /* private mode */ }
+
 function prepareHeroText() {
   document.querySelectorAll('[data-split]').forEach((el) => {
     heroChars.push(...splitChars(el))
@@ -134,9 +142,14 @@ async function boot() {
   // Autoplay is set in the markup; nudge it for browsers that ignore the
   // attribute. Muted + playsinline keeps iOS happy. Failure just leaves a
   // still frame — acceptable.
-  if (loaderVideo) loaderVideo.play?.().catch(() => {})
+  if (RETURNING) {
+    loader.classList.add('loader--skip')
+    if (loaderVideo) { loaderVideo.pause(); loaderVideo.removeAttribute('src'); loaderVideo.load() }
+  } else if (loaderVideo) {
+    loaderVideo.play?.().catch(() => {})
+  }
 
-  if (!prefersReducedMotion) {
+  if (!prefersReducedMotion && !RETURNING) {
     gsap.from('.loader__ui', { autoAlpha: 0, y: 16, duration: 0.9, ease: 'power3.out', delay: 0.2 })
   }
 
@@ -145,7 +158,7 @@ async function boot() {
   // time component the bar would just sit at 100% for three seconds.
   const progress = { real: 0, shown: 0 }
   const renderProgress = () => {
-    const timeP = prefersReducedMotion
+    const timeP = prefersReducedMotion || RETURNING
       ? 1
       : Math.min((performance.now() - bootStart) / LOADER_MIN_MS, 1)
     const target = Math.min(progress.real, timeP)
@@ -162,8 +175,8 @@ async function boot() {
   lastDrawn = -1
   drawFrame(0)
 
-  // Give the brand video its moment (skipped for reduced motion)
-  if (!prefersReducedMotion) {
+  // Give the brand video its moment (skipped for reduced motion / returns)
+  if (!prefersReducedMotion && !RETURNING) {
     const elapsed = performance.now() - bootStart
     if (elapsed < LOADER_MIN_MS) {
       await new Promise((r) => setTimeout(r, LOADER_MIN_MS - elapsed))
@@ -184,6 +197,32 @@ async function boot() {
     gsap.set(heroChars, { y: 0, rotateX: 0 })
     if (loaderVideo) loaderVideo.pause()
     loader.setAttribute('aria-busy', 'false')
+    return
+  }
+
+  if (RETURNING) {
+    // Quick dissolve instead of the full cinematic curtain
+    loader.setAttribute('aria-busy', 'false')
+    gsap.timeline()
+      .to(loader, { autoAlpha: 0, duration: 0.45, ease: 'power2.inOut' })
+      .add(() => {
+        loader.classList.add('is-hidden')
+        gsap.set(loader, { display: 'none' })
+      })
+      .to(heroChars, {
+        y: 0,
+        rotateX: 0,
+        duration: 0.9,
+        ease: 'power4.out',
+        stagger: { each: 0.015, from: 'start' },
+      }, '-=0.2')
+      .to('.hero__eyebrow, .hero__foot [data-reveal]', {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        stagger: 0.08,
+      }, '-=0.5')
     return
   }
 

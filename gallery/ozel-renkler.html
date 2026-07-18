@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0a0a0b" />
+    <title>Özel Renkler ve Cam Renkleri — Taner Yolcu Aluminium Works</title>
+    <meta
+      name="description"
+      content="Anodize kaplama finişleri — mat, polisaj, fırçalı, kumlama — ve kutu profil kaplama seçenekleri. Taner Yolcu Aluminium Works renk laboratuvarı."
+    />
+    <!-- Critical: avoid unstyled flash while the bundled CSS loads.
+         The page stylesheet reveals <body> again via a class rule. -->
+    <style>
+      html { background: #0a0a0b; color-scheme: dark; }
+      body { visibility: hidden; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="renkler">
+    <div class="aurora" aria-hidden="true"></div>
+
+    <!-- Chrome -->
+    <header class="chrome">
+      <a class="chrome__back" href="/"
+        ><span class="chrome__back-arrow">←</span> Taner Yolcu</a
+      >
+      <span class="chrome__tag">Özel Renkler</span>
+    </header>
+
+    <main>
+      <!-- ===== Hero ===== -->
+      <section class="hero">
+        <p class="eyebrow" data-fade>
+          <span class="eyebrow__dot"></span>Renk laboratuvarı — anodize &amp; kaplama
+        </p>
+        <h1 class="hero__title">
+          <span class="hero__line"><span data-split>Özel</span></span>
+          <span class="hero__line hero__line--accent"
+            ><span data-split>Renkler</span></span
+          >
+        </h1>
+        <p class="hero__lede" data-fade>
+          Aynı profil, bambaşka karakterler. Bir finish seçin — sayfa
+          onunla birlikte renklensin.
+        </p>
+        <div class="hero__kapak" data-fade>
+          <img id="kapakImg" alt="Anodize boyalar — kapak" decoding="async" />
+        </div>
+      </section>
+
+      <!-- ===== The Lab: finish configurator ===== -->
+      <section class="lab" id="lab">
+        <div class="lab__rail" role="tablist" aria-label="Anodize finiş seçimi" id="labRail"></div>
+        <div class="lab__view">
+          <span class="lab__watermark" id="labWatermark" aria-hidden="true"></span>
+          <div class="lab__frames">
+            <figure class="lab__frame lab__frame--a" id="frameA" data-swap>
+              <img id="imgA" alt="" decoding="async" />
+            </figure>
+            <figure class="lab__frame lab__frame--b" id="frameB" data-swap>
+              <img id="imgB" alt="" decoding="async" />
+            </figure>
+          </div>
+          <p class="lab__note" id="labNote"></p>
+        </div>
+      </section>
+
+      <!-- ===== Kutu profil kaplama ===== -->
+      <section class="kutu">
+        <p class="eyebrow" data-reveal>
+          <span class="eyebrow__dot"></span>Kutu profil kaplama
+        </p>
+        <h2 class="kutu__title" data-reveal>
+          Ahşap dokular, <em>alüminyum</em> gövde.
+        </h2>
+        <div class="kutu__video" data-reveal>
+          <video
+            id="kutuVideo"
+            muted
+            autoplay
+            loop
+            playsinline
+            preload="metadata"
+            disablepictureinpicture
+          ></video>
+          <span class="kutu__video-tag">Organik morph</span>
+        </div>
+        <div class="kutu__row" id="kutuRow"></div>
+      </section>
+
+      <!-- ===== Outro ===== -->
+      <section class="outro">
+        <h2 class="outro__title">Renginizi <em>bulalım.</em></h2>
+        <div class="outro__actions">
+          <a class="outro__cta" href="/#contact">Teklif al →</a>
+          <a class="outro__ghost" href="/">Ana sayfa</a>
+        </div>
+        <footer class="footer">
+          <span>© Taner Yolcu Aluminium Works</span>
+          <span>Özel Renkler ve Cam Renkleri</span>
+        </footer>
+      </section>
+    </main>
+
+    <!-- ===== Lightbox ===== -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox__close" id="lightboxClose" aria-label="Kapat">✕</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+        <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+      </figure>
+    </div>
+
+    <script type="module" src="/src/gallery/renkler.js"></script>
+  </body>
+</html>

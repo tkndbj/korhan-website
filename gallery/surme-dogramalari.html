@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#131210" />
+    <title>Sürme Doğramaları — Taner Yolcu Aluminium Works</title>
+    <meta
+      name="description"
+      content="Sürme doğrama serileri — 3200, T100, RST116, kemerli ve karolajlı ısı yalıtımlı sistemler. Taner Yolcu Aluminium Works galerisi."
+    />
+    <!-- Critical: avoid unstyled flash while the bundled CSS loads.
+         The page stylesheet reveals <body> again via a class rule. -->
+    <style>
+      html { background: #131210; color-scheme: dark; }
+      body { visibility: hidden; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="surme">
+    <!-- Chrome -->
+    <header class="chrome">
+      <a class="chrome__back" href="/"
+        ><span class="chrome__back-arrow">←</span> Taner Yolcu</a
+      >
+      <span class="chrome__tag">Sürme Doğramaları</span>
+    </header>
+
+    <main>
+      <!-- ===== Hero: split typography + floating video ===== -->
+      <section class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow" data-stagger>
+            <span class="eyebrow__dot"></span>Showroom — 4 seri
+          </p>
+          <h1 class="hero__title">
+            <span class="hero__line"><span data-split>Sürme</span></span>
+            <span class="hero__line hero__line--serif"
+              ><span data-split>Doğramaları</span></span
+            >
+          </h1>
+          <p class="hero__lede" data-stagger>
+            Sessiz kayan kanatlar, ısı yalıtımlı profiller ve ince
+            görünüm hatları. Dört seri, tek showroom — filtreleyin,
+            yakından inceleyin.
+          </p>
+          <div class="hero__stats" data-stagger>
+            <div class="hero__stat">
+              <span class="hero__stat-no" data-total-count>0</span>
+              <span class="hero__stat-label">Görsel</span>
+            </div>
+            <div class="hero__stat">
+              <span class="hero__stat-no">4</span>
+              <span class="hero__stat-label">Seri</span>
+            </div>
+            <div class="hero__stat">
+              <span class="hero__stat-no">T100</span>
+              <span class="hero__stat-label">Isı yalıtımlı</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero__media" data-stagger>
+          <video
+            class="hero__video"
+            id="heroVideo"
+            muted
+            autoplay
+            loop
+            playsinline
+            preload="auto"
+            disablepictureinpicture
+            aria-hidden="true"
+          ></video>
+          <span class="hero__media-tag">T100 · Intro</span>
+        </div>
+      </section>
+
+      <!-- ===== Filter bar (sticky) ===== -->
+      <nav class="filters" id="filters" aria-label="Seri filtresi">
+        <button class="filters__chip is-active" data-filter="all">
+          Tümü <span class="filters__n" data-filter-count="all"></span>
+        </button>
+        <button class="filters__chip" data-filter="s3200">
+          3200 Serisi <span class="filters__n" data-filter-count="s3200"></span>
+        </button>
+        <button class="filters__chip" data-filter="t100">
+          T100 <span class="filters__n" data-filter-count="t100"></span>
+        </button>
+        <button class="filters__chip" data-filter="rst116">
+          RST116 <span class="filters__n" data-filter-count="rst116"></span>
+        </button>
+        <button class="filters__chip" data-filter="kemerli">
+          Kemerli &amp; Karolajlı
+          <span class="filters__n" data-filter-count="kemerli"></span>
+        </button>
+      </nav>
+
+      <!-- ===== Masonry ===== -->
+      <section class="wall">
+        <div class="wall__grid" id="wall"></div>
+      </section>
+
+      <!-- ===== Outro ===== -->
+      <section class="outro">
+        <h2 class="outro__title">
+          Hangi seri <em>size</em> göre?
+        </h2>
+        <p class="outro__sub">
+          Ölçü alımından montaja — birlikte karar verelim.
+        </p>
+        <div class="outro__actions">
+          <a class="outro__cta" href="/#contact">Teklif al →</a>
+          <a class="outro__ghost" href="/">Ana sayfa</a>
+        </div>
+        <footer class="footer">
+          <span>© Taner Yolcu Aluminium Works</span>
+          <span>Sürme Doğramaları</span>
+        </footer>
+      </section>
+    </main>
+
+    <!-- ===== Lightbox ===== -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox__close" id="lightboxClose" aria-label="Kapat">✕</button>
+      <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Önceki">←</button>
+      <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Sonraki">→</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+        <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+      </figure>
+    </div>
+
+    <script type="module" src="/src/gallery/surme.js"></script>
+  </body>
+</html>
