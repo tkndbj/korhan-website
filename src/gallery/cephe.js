@@ -22,6 +22,7 @@ try { sessionStorage.setItem('tyc-visited', '1') } catch { /* private mode */ }
    Content
    ------------------------------------------------------------------------- */
 const BASE = '/media/Cephe Dogramalari'
+const encPath = (p) => p.split('/').map(encodeURIComponent).join('/')
 const HERO_VIDEO = `${BASE}/Kapaklı Cephe Yüksek kat kaplama/r50 cephe kesit.mp4`
 
 const CHAPTERS = {
@@ -62,7 +63,7 @@ const CHAPTERS = {
   },
 }
 
-const url = (dir, file) => encodeURI(`${BASE}/${dir}/${file}`)
+const url = (dir, file) => encPath(`${BASE}/${dir}/${file}`)
 
 /* Human caption from a filename; generic uploads fall back to a number. */
 function caption(file, label, i) {
@@ -141,7 +142,7 @@ gsap.to('#progressFill', {
 
 // Hero video + intro
 const heroVideo = document.getElementById('heroVideo')
-heroVideo.src = encodeURI(HERO_VIDEO)
+heroVideo.src = encPath(HERO_VIDEO)
 heroVideo.play?.().catch(() => {})
 
 const heroChars = []

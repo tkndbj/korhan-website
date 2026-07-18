@@ -23,6 +23,7 @@ try { sessionStorage.setItem('tyc-visited', '1') } catch { /* private mode */ }
    Content
    ------------------------------------------------------------------------- */
 const BASE = '/media/Vitrin Dogramalari'
+const encPath = (p) => p.split('/').map(encodeURIComponent).join('/')
 const HERO_VIDEO = `${BASE}/Kapı ve Dükkan Cepheleri/RW60.mp4`
 
 const SHOPS = [
@@ -35,7 +36,7 @@ const SHOPS = [
   'image_1783886593187_738fcede.webp',
   'image_1783886598645_e33aa767.webp',
   'image_1783886902927_2d810e47.webp',
-].map((f) => encodeURI(`${BASE}/Dükkan örnekleri/${f}`))
+].map((f) => encPath(`${BASE}/Dükkan örnekleri/${f}`))
 
 const PLATES = [
   { file: 'C60 dükkan Cephesi.webp', cap: 'C60 dükkan cephesi' },
@@ -44,7 +45,7 @@ const PLATES = [
     cap: 'C60 kapılar ve cam kombinasyonları',
   },
   { file: 'İç mekan Ofis cephesi.webp', cap: 'İç mekan ofis cephesi' },
-].map((p) => ({ ...p, src: encodeURI(`${BASE}/Kapı ve Dükkan Cepheleri/${p.file}`) }))
+].map((p) => ({ ...p, src: encPath(`${BASE}/Kapı ve Dükkan Cepheleri/${p.file}`) }))
 
 /* -------------------------------------------------------------------------
    Build: storefronts + plates
@@ -109,7 +110,7 @@ if (!prefersReducedMotion) {
 }
 
 const heroVideo = document.getElementById('heroVideo')
-heroVideo.src = encodeURI(HERO_VIDEO)
+heroVideo.src = encPath(HERO_VIDEO)
 heroVideo.play?.().catch(() => {})
 
 const heroChars = []

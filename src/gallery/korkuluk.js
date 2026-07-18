@@ -22,7 +22,8 @@ try { sessionStorage.setItem('tyc-visited', '1') } catch { /* private mode */ }
    Content
    ------------------------------------------------------------------------- */
 const BASE = '/media/Cam Korkuluklar ve Küpeşteler'
-const u = (path) => encodeURI(`${BASE}/${path}`)
+const encPath = (p) => p.split('/').map(encodeURIComponent).join('/')
+const u = (path) => encPath(`${BASE}/${path}`)
 
 const CARDS = [
   {

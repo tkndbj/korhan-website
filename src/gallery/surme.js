@@ -22,6 +22,7 @@ try { sessionStorage.setItem('tyc-visited', '1') } catch { /* private mode */ }
    Content
    ------------------------------------------------------------------------- */
 const BASE = '/media/Sürme Doğramalar'
+const encPath = (p) => p.split('/').map(encodeURIComponent).join('/')
 const HERO_VIDEO = `${BASE}/t100/Intro.mp4`
 
 const SERIES = {
@@ -88,7 +89,7 @@ const SERIES = {
   },
 }
 
-const url = (dir, file) => encodeURI(`${BASE}/${dir}/${file}`)
+const url = (dir, file) => encPath(`${BASE}/${dir}/${file}`)
 
 function caption(file, label, i) {
   const name = file.replace(/\.[a-z0-9]+$/i, '').replace(/\.+$/, '')
@@ -156,7 +157,7 @@ if (!prefersReducedMotion) {
 }
 
 const heroVideo = document.getElementById('heroVideo')
-heroVideo.src = encodeURI(HERO_VIDEO)
+heroVideo.src = encPath(HERO_VIDEO)
 heroVideo.play?.().catch(() => {})
 
 const heroChars = []

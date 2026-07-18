@@ -23,6 +23,7 @@ try { sessionStorage.setItem('tyc-visited', '1') } catch { /* private mode */ }
    Content
    ------------------------------------------------------------------------- */
 const BASE = '/media/Cam türleri'
+const encPath = (p) => p.split('/').map(encodeURIComponent).join('/')
 const FAN_CLOSED = `${BASE}/Yelpazae Kapalı.webp`
 const FAN_OPEN = `${BASE}/Açık yelpaze.webp`
 const TYPES = `${BASE}/Türler.webp`
@@ -36,9 +37,9 @@ const FRAME_DIR = window.matchMedia('(max-width: 768px)').matches
   : '/frames-cam/desktop'
 const frameUrl = (i) => `${FRAME_DIR}/frame_${String(i + 1).padStart(4, '0')}.webp`
 
-document.getElementById('fanClosed').src = encodeURI(FAN_CLOSED)
-document.getElementById('fanOpen').src = encodeURI(FAN_OPEN)
-document.getElementById('typesImg').src = encodeURI(TYPES)
+document.getElementById('fanClosed').src = encPath(FAN_CLOSED)
+document.getElementById('fanOpen').src = encPath(FAN_OPEN)
+document.getElementById('typesImg').src = encPath(TYPES)
 
 /* -------------------------------------------------------------------------
    Smooth scroll
@@ -323,7 +324,7 @@ function closeLightbox() {
 }
 
 document.getElementById('typesPlate').addEventListener('click', () => {
-  openLightbox(encodeURI(TYPES), 'Cam türleri — katalog')
+  openLightbox(encPath(TYPES), 'Cam türleri — katalog')
 })
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox)
 lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox() })

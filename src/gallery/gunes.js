@@ -23,7 +23,8 @@ try { sessionStorage.setItem('tyc-visited', '1') } catch { /* private mode */ }
    Content
    ------------------------------------------------------------------------- */
 const BASE = '/media/Güneş Kırıcılar'
-const u = (file) => encodeURI(`${BASE}/${file}`)
+const encPath = (p) => p.split('/').map(encodeURIComponent).join('/')
+const u = (file) => encPath(`${BASE}/${file}`)
 
 const SLIDES = [
   {

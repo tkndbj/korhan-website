@@ -23,7 +23,8 @@ try { sessionStorage.setItem('tyc-visited', '1') } catch { /* private mode */ }
    Content
    ------------------------------------------------------------------------- */
 const BASE = '/media/Ozel Renkler'
-const u = (path) => encodeURI(`${BASE}/${path}`)
+const encPath = (p) => p.split('/').map(encodeURIComponent).join('/')
+const u = (path) => encPath(`${BASE}/${path}`)
 
 const KAPAK = u('Anodize boyalar/Kapak.webp')
 
