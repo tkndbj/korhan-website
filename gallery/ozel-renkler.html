@@ -37,23 +37,34 @@
     </header>
 
     <main>
-      <!-- ===== Hero ===== -->
+      <!-- ===== Hero: fullscreen özel renkler video ===== -->
       <section class="hero">
-        <p class="eyebrow" data-fade>
-          <span class="eyebrow__dot"></span>Renk laboratuvarı — anodize &amp; kaplama
-        </p>
-        <h1 class="hero__title">
-          <span class="hero__line"><span data-split>Özel</span></span>
-          <span class="hero__line hero__line--accent"
-            ><span data-split>Renkler</span></span
-          >
-        </h1>
-        <p class="hero__lede" data-fade>
-          Aynı profil, bambaşka karakterler. Bir finish seçin — sayfa
-          onunla birlikte renklensin.
-        </p>
-        <div class="hero__kapak" data-fade>
-          <img id="kapakImg" alt="Anodize boyalar — kapak" decoding="async" />
+        <video
+          class="hero__video"
+          id="heroVideo"
+          muted
+          autoplay
+          loop
+          playsinline
+          preload="auto"
+          disablepictureinpicture
+          aria-hidden="true"
+        ></video>
+        <div class="hero__scrim" aria-hidden="true"></div>
+        <div class="hero__inner">
+          <p class="eyebrow" data-fade>
+            <span class="eyebrow__dot"></span>Renk laboratuvarı — anodize &amp; kaplama
+          </p>
+          <h1 class="hero__title">
+            <span class="hero__line"><span data-split>Özel</span></span>
+            <span class="hero__line hero__line--accent"
+              ><span data-split>Renkler</span></span
+            >
+          </h1>
+          <p class="hero__lede" data-fade>
+            Aynı profil, bambaşka karakterler. Bir finish seçin — sayfa
+            onunla birlikte renklensin.
+          </p>
         </div>
       </section>
 

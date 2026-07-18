@@ -26,7 +26,7 @@ const BASE = '/media/Ozel Renkler'
 const encPath = (p) => p.split('/').map(encodeURIComponent).join('/')
 const u = (path) => encPath(`${BASE}/${path}`)
 
-const KAPAK = u('Anodize boyalar/Kapak.webp')
+const HERO_VIDEO = u('özelrenkler.mp4')
 
 const FINISHES = [
   {
@@ -82,7 +82,9 @@ const KUTU_PAGES = [
 /* -------------------------------------------------------------------------
    Static media
    ------------------------------------------------------------------------- */
-document.getElementById('kapakImg').src = KAPAK
+const heroVideo = document.getElementById('heroVideo')
+heroVideo.src = HERO_VIDEO
+heroVideo.play?.().catch(() => {})
 const kutuVideo = document.getElementById('kutuVideo')
 kutuVideo.src = KUTU_VIDEO
 kutuVideo.play?.().catch(() => {})
@@ -201,11 +203,18 @@ if (!prefersReducedMotion) {
       stagger: 0.12,
     }, '-=0.6')
 
-  // Kapak image drifts up slightly as you scroll into the lab
-  gsap.to('.hero__kapak', {
-    yPercent: -6,
+  // Fullscreen hero video drifts + copy recedes as you leave (like cephe)
+  gsap.to('.hero__video', {
+    yPercent: 16,
+    scale: 1.12,
     ease: 'none',
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
+  })
+  gsap.to('.hero__inner', {
+    yPercent: -14,
+    opacity: 0.25,
+    ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 30%', scrub: true },
   })
 
   // Lab entrance
