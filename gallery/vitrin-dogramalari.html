@@ -35,9 +35,21 @@
     </header>
 
     <main>
-      <!-- ===== Hero: title + RW60 video ===== -->
+      <!-- ===== Hero: fullscreen RW60 video ===== -->
       <section class="hero">
-        <div class="hero__copy">
+        <video
+          class="hero__video"
+          id="heroVideo"
+          muted
+          autoplay
+          loop
+          playsinline
+          preload="auto"
+          disablepictureinpicture
+          aria-hidden="true"
+        ></video>
+        <div class="hero__scrim" aria-hidden="true"></div>
+        <div class="hero__inner">
           <p class="eyebrow" data-fade>
             <span class="eyebrow__dot"></span>C60 — Kapı &amp; dükkan cepheleri
           </p>
@@ -52,19 +64,6 @@
             kurulmuş dükkan cepheleri arasında yürüyün.
           </p>
           <p class="hero__walk" data-fade>Kaydırın, cadde ilerlesin →</p>
-        </div>
-        <div class="hero__media" data-fade>
-          <video
-            id="heroVideo"
-            muted
-            autoplay
-            loop
-            playsinline
-            preload="auto"
-            disablepictureinpicture
-            aria-hidden="true"
-          ></video>
-          <span class="hero__media-tag">RW60 · C60 sistem</span>
         </div>
       </section>
 

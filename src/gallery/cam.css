@@ -113,7 +113,7 @@ img {
 /* ----------------------------------------------------------------- scrub */
 .scrub {
   position: relative;
-  height: 420vh; /* scroll runway that scrubs the video */
+  height: 280vh; /* scroll runway that scrubs the video */
 }
 
 .scrub__stage {
@@ -505,7 +505,7 @@ img {
 /* ------------------------------------------------------------ responsive */
 @media (max-width: 900px) {
   .scrub {
-    height: 320vh;
+    height: 210vh;
   }
   .fan__stage {
     aspect-ratio: 4 / 3;

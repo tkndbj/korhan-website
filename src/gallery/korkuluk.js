@@ -37,7 +37,7 @@ const CARDS = [
     no: '01',
     title: 'Kare <em>Dikmeli</em>',
     desc: 'Kare profil dikmeler, cam tutamaklı küpeşteler — bronz ve füme laminasyonlu cam seçenekleriyle.',
-    cover: u('kare dikmeli cam tutamaklı küpeşteler/Siyah kare dikmeli - Tutamaklı - Füme cam (4+4).webp'),
+    cover: u('kare dikmeli cam tutamaklı küpeşteler/kare dikmeli - Bronze+Bronze (5+5) cam.webp'),
     dir: 'kare dikmeli cam tutamaklı küpeşteler',
     files: [
       'kare dikmeli - Bronze+Bronze (5+5) cam.webp',

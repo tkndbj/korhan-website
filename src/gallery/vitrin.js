@@ -126,6 +126,20 @@ if (!prefersReducedMotion) {
       ease: 'power3.out',
       stagger: 0.12,
     }, '-=0.6')
+
+  // Fullscreen hero video drifts + copy recedes as you leave (like cephe)
+  gsap.to('.hero__video', {
+    yPercent: 16,
+    scale: 1.12,
+    ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
+  })
+  gsap.to('.hero__inner', {
+    yPercent: -14,
+    opacity: 0.25,
+    ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 30%', scrub: true },
+  })
 } else {
   gsap.set(heroChars, { y: 0 })
 }

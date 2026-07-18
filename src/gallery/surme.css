@@ -116,28 +116,34 @@ img {
 
 /* ------------------------------------------------------------------ hero */
 .hero {
-  min-height: 100svh;
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  align-items: center;
-  gap: clamp(2rem, 5vw, 5rem);
-  padding: clamp(6rem, 14vh, 8rem) var(--pad) clamp(3rem, 7vh, 5rem);
   position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
 }
 
-.hero::before {
-  /* faint oversized watermark */
-  content: 'SÜRME';
+.hero__video {
   position: absolute;
-  top: 8%;
-  left: -2%;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(8rem, 24vw, 20rem);
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(236, 231, 219, 0.07);
-  pointer-events: none;
-  white-space: nowrap;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(19, 18, 16, 0.55) 0%, rgba(19, 18, 16, 0.08) 40%, rgba(19, 18, 16, 0.92) 100%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  padding: 0 var(--pad) clamp(4rem, 10vh, 7rem);
+  max-width: 1100px;
 }
 
 .hero__title {
@@ -179,10 +185,11 @@ img {
 
 .hero__stats {
   display: flex;
+  flex-wrap: wrap;
   gap: clamp(1.6rem, 4vw, 3.2rem);
   margin-top: 2.4rem;
   padding-top: 1.6rem;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(236, 231, 219, 0.22);
 }
 
 .hero__stat {
@@ -201,40 +208,6 @@ img {
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--ink-faint);
-}
-
-.hero__media {
-  position: relative;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
-  transform: rotate(1.6deg);
-  aspect-ratio: 4 / 5;
-  max-height: 72vh;
-  justify-self: center;
-  width: 100%;
-  max-width: 480px;
-  background: var(--paper-2);
-}
-
-.hero__video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero__media-tag {
-  position: absolute;
-  left: 1rem;
-  bottom: 1rem;
-  font-size: 0.64rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: #fff;
-  background: rgba(22, 20, 15, 0.55);
-  backdrop-filter: blur(6px);
-  border-radius: 99px;
-  padding: 0.45rem 0.9rem;
 }
 
 [data-stagger] {
@@ -533,14 +506,8 @@ img {
 }
 
 @media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-    padding-top: clamp(5.5rem, 12vh, 7rem);
-  }
-  .hero__media {
-    max-width: 100%;
-    aspect-ratio: 16 / 10;
-    transform: rotate(0deg);
+  .hero__inner {
+    padding-bottom: clamp(3rem, 8vh, 5rem);
   }
 }
 
