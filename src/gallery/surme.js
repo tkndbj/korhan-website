@@ -91,14 +91,6 @@ const SERIES = {
 
 const url = (dir, file) => encPath(`${BASE}/${dir}/${file}`)
 
-function caption(file, label, i) {
-  const name = file.replace(/\.[a-z0-9]+$/i, '').replace(/\.+$/, '')
-  if (/^image_\d+/i.test(name) || /^[0-9a-f-]{20,}$/i.test(name)) {
-    return `${label} — ${String(i + 1).padStart(2, '0')}`
-  }
-  return name
-}
-
 /* -------------------------------------------------------------------------
    Build the wall — interleave series so "Tümü" mixes them visually
    ------------------------------------------------------------------------- */
@@ -114,7 +106,6 @@ for (let i = 0; i < maxLen; i++) {
     const file = serie.files[i]
     if (!file) continue
     const src = url(serie.dir, file)
-    const cap = caption(file, serie.label, i)
 
     const card = document.createElement('button')
     card.type = 'button'
@@ -122,14 +113,13 @@ for (let i = 0; i < maxLen; i++) {
     card.dataset.serie = key
     card.innerHTML = `
       <span class="card__media">
-        <img class="card__img" src="${src}" alt="${cap}" loading="lazy" decoding="async" />
+        <img class="card__img" src="${src}" alt="${serie.label}" loading="lazy" decoding="async" />
       </span>
       <span class="card__meta">
-        <span class="card__cap">${cap}</span>
         <span class="card__serie">${serie.label}</span>
       </span>`
     wall.appendChild(card)
-    items.push({ el: card, key, src, cap })
+    items.push({ el: card, key, src, label: serie.label })
   }
 }
 
@@ -283,8 +273,8 @@ function show(i) {
   current = (i + list.length) % list.length
   const item = list[current]
   lightboxImg.src = item.src
-  lightboxImg.alt = item.cap
-  lightboxCap.textContent = `${item.cap} · ${current + 1} / ${list.length}`
+  lightboxImg.alt = item.label
+  lightboxCap.textContent = `${item.label} · ${current + 1} / ${list.length}`
   if (!prefersReducedMotion) {
     gsap.fromTo('.lightbox__figure', { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'power3.out' })
   }

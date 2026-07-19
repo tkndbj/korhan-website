@@ -51,7 +51,9 @@ body.renkler {
   color: var(--ink);
   font-family: var(--font-body);
   font-weight: 300;
-  overflow-x: hidden;
+  /* no overflow-x here: html{overflow-x:clip} handles horizontal panning,
+     and a non-visible overflow on body makes it a scroll container,
+     which un-pins every position:sticky stage inside it */
   -webkit-font-smoothing: antialiased;
 }
 
