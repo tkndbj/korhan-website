@@ -4,14 +4,24 @@
    Only activates on fine pointers.
    ========================================================================= */
 
+import './cursor.css'
 import gsap from 'gsap'
 
 export function initCursor() {
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
   if (!fine) return
 
-  const root = document.getElementById('cursor')
-  if (!root) return
+  // Gallery pages don't carry the markup in their HTML — build it on demand
+  let root = document.getElementById('cursor')
+  if (!root) {
+    root = document.createElement('div')
+    root.id = 'cursor'
+    root.className = 'cursor'
+    root.setAttribute('aria-hidden', 'true')
+    root.innerHTML =
+      '<div class="cursor__dot"></div><div class="cursor__ring"><span class="cursor__label"></span></div>'
+    document.body.appendChild(root)
+  }
   const dot = root.querySelector('.cursor__dot')
   const ring = root.querySelector('.cursor__ring')
   const label = root.querySelector('.cursor__label')

@@ -486,8 +486,11 @@ function initGallery() {
   const track = document.querySelector('[data-htrack]')
   if (!pin || !track) return
 
-  if (prefersReducedMotion) {
-    pin.style.overflowX = 'auto'
+  // Touch devices (phones/tablets) get a native swipeable strip instead of
+  // the scroll-pinned scrub; same for reduced motion.
+  const coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+  if (prefersReducedMotion || coarse) {
+    pin.classList.add('hpin--swipe')
     return
   }
 

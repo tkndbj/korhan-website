@@ -1,0 +1,81 @@
+/* =========================================================================
+   Custom cursor — shared by the home page and every gallery page.
+   Gold dot + lagging ring; only shown on fine pointers (see cursor.js).
+   Fallback values cover pages that don't define the theme variables.
+   ========================================================================= */
+
+/* Hide the native cursor once the custom one takes over */
+@media (hover: hover) and (pointer: fine) {
+  body.has-cursor,
+  body.has-cursor a,
+  body.has-cursor button,
+  body.has-cursor [data-magnetic] {
+    cursor: none;
+  }
+}
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0;
+}
+
+body.has-cursor .cursor {
+  opacity: 1;
+}
+
+.cursor__dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold, #d8a24a);
+  transform: translate(-50%, -50%);
+}
+
+.cursor__ring {
+  position: fixed;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(236, 231, 221, 0.35);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+    height 0.35s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+    background-color 0.35s, border-color 0.35s;
+}
+
+.cursor__label {
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  opacity: 0;
+  transition: opacity 0.25s;
+  white-space: nowrap;
+}
+
+.cursor.is-hover .cursor__ring {
+  width: 64px;
+  height: 64px;
+  background: rgba(236, 231, 221, 0.08);
+  border-color: rgba(236, 231, 221, 0.6);
+}
+
+.cursor.is-label .cursor__ring {
+  width: 84px;
+  height: 84px;
+  background: var(--gold, #d8a24a);
+  border-color: var(--gold, #d8a24a);
+}
+.cursor.is-label .cursor__label {
+  opacity: 1;
+}
+.cursor.is-label .cursor__dot {
+  opacity: 0;
+}
