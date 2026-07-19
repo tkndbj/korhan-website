@@ -1250,6 +1250,22 @@ html.reduce-motion .service {
   .chrome__menu-item { font-size: 0.62rem; letter-spacing: 0.16em; }
 }
 
+/* Phone-only headline scale-down. At these widths the vw term of every clamp()
+   falls below its floor, so the floor is what actually renders — lower the
+   floors (and keep the vw term) rather than touching the desktop ceilings. */
+@media (max-width: 600px) {
+  .hero__title { font-size: clamp(1.95rem, 7.5vw, 6.4rem); }
+  .hero__title--brand { font-size: clamp(1.5rem, 5vw, 4rem); }
+  .display { font-size: clamp(1.55rem, 4.6vw, 3.6rem); }
+  .display--giant { font-size: clamp(2.6rem, 9.5vw, 7.5rem); }
+  .hpin__head .display--giant { font-size: clamp(1.75rem, 10.5vw, 3rem); }
+  .contact__title { font-size: clamp(1.8rem, 5.6vw, 4.6rem); }
+  .manifesto { font-size: clamp(1.05rem, 3vw, 2.4rem); }
+  .marquee--ghost .marquee__item { font-size: clamp(1.45rem, 4.5vw, 3.6rem); }
+  .service__title { font-size: clamp(1rem, 2.5vw, 2rem); }
+  .pillar__title { font-size: clamp(1rem, 2vw, 1.5rem); }
+}
+
 /* Reduced motion: neutralize decorative animation */
 html.reduce-motion .stage__grain,
 html.reduce-motion .scroll-hint__line,
