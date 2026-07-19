@@ -29,6 +29,10 @@
 
 html {
   scroll-behavior: auto;
+  /* body-level overflow-x alone doesn't stop mobile horizontal panning —
+     the root element becomes the scroller; clip it (no scroll container) */
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 html.lenis,
@@ -830,6 +834,11 @@ html.reduce-motion .service {
   position: relative;
   flex-shrink: 0;
 }
+/* size to the image, not the caption — long captions wrap instead of
+   widening the slide past the viewport */
+.slide:not(.slide--end) {
+  width: min-content;
+}
 
 .slide__media {
   width: clamp(420px, 52vw, 780px);
@@ -853,8 +862,9 @@ html.reduce-motion .service {
 
 .slide__cap {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 1rem;
+  gap: 0.25rem 1rem;
   margin-top: 1.1rem;
 }
 
@@ -1135,6 +1145,86 @@ html.reduce-motion .service {
 }
 
 /* =========================================================================
+   Lightbox (RW60 gallery images fullscreen)
+   ========================================================================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(7, 7, 8, 0.94);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.lightbox__figure {
+  max-width: min(92vw, 1400px);
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.lightbox__cap {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-align: center;
+}
+
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  z-index: 2;
+  background: transparent;
+  border: 1px solid rgba(236, 231, 221, 0.25);
+  color: var(--ink);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: border-color 0.3s, background 0.3s;
+}
+.lightbox__close:hover,
+.lightbox__nav:hover {
+  border-color: var(--gold);
+  background: rgba(216, 162, 74, 0.15);
+}
+
+.lightbox__close {
+  top: clamp(1rem, 3vw, 2rem);
+  right: clamp(1rem, 3vw, 2rem);
+}
+.lightbox__nav--prev {
+  left: clamp(0.6rem, 2.5vw, 2rem);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lightbox__nav--next {
+  right: clamp(0.6rem, 2.5vw, 2rem);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* the slides advertise they zoom */
+.slide__media {
+  cursor: zoom-in;
+}
+
+/* =========================================================================
    Responsive
    ========================================================================= */
 @media (max-width: 960px) {
@@ -1151,6 +1241,10 @@ html.reduce-motion .service {
 @media (max-width: 600px) {
   .slide__media { width: 78vw; }
   .slide--tall .slide__media { width: 78vw; }
+  .lightbox__nav { width: 40px; height: 40px; }
+  /* keep the giant outlined RW60 heading inside the phone screen */
+  .hpin__head { max-width: calc(100vw - 2 * var(--pad)); }
+  .hpin__head .display--giant { font-size: clamp(2.1rem, 10.5vw, 3rem); }
   .footer { flex-direction: column; gap: 0.4rem; }
   .footer__mid { display: none; }
   .chrome__menu-item { font-size: 0.62rem; letter-spacing: 0.16em; }

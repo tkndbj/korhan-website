@@ -680,4 +680,66 @@ if (chromeEl && burgerEl) {
   })
 }
 
+/* -------------------------------------------------------------------------
+   Lightbox: RW60 gallery images fullscreen
+   ------------------------------------------------------------------------- */
+const lightboxEl = document.getElementById('lightbox')
+if (lightboxEl) {
+  const lightboxImg = document.getElementById('lightboxImg')
+  const lightboxCap = document.getElementById('lightboxCap')
+  const lbSlides = [...document.querySelectorAll('[data-slide]')].filter((s) =>
+    s.querySelector('[data-slide-img]')
+  )
+  let lbIndex = 0
+  let lbOpen = false
+
+  const showSlide = (i) => {
+    lbIndex = (i + lbSlides.length) % lbSlides.length
+    const slide = lbSlides[lbIndex]
+    const img = slide.querySelector('[data-slide-img]')
+    const title = slide.querySelector('.slide__title')?.textContent.trim() || ''
+    lightboxImg.src = img.currentSrc || img.src
+    lightboxImg.alt = img.alt
+    lightboxCap.textContent = `${title} · ${lbIndex + 1} / ${lbSlides.length}`
+    if (!prefersReducedMotion) {
+      gsap.fromTo(
+        '.lightbox__figure',
+        { opacity: 0, scale: 0.96 },
+        { opacity: 1, scale: 1, duration: 0.45, ease: 'power3.out' }
+      )
+    }
+  }
+
+  const openLightbox = (slide) => {
+    lbOpen = true
+    showSlide(lbSlides.indexOf(slide))
+    lightboxEl.setAttribute('aria-hidden', 'false')
+    gsap.to(lightboxEl, { autoAlpha: 1, duration: 0.35, ease: 'power2.out' })
+    if (lenis) lenis.stop()
+  }
+
+  const closeLightbox = () => {
+    lbOpen = false
+    lightboxEl.setAttribute('aria-hidden', 'true')
+    gsap.to(lightboxEl, { autoAlpha: 0, duration: 0.3, ease: 'power2.in' })
+    if (lenis) lenis.start()
+  }
+
+  lbSlides.forEach((slide) => {
+    slide
+      .querySelector('.slide__media')
+      .addEventListener('click', () => openLightbox(slide))
+  })
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox)
+  document.getElementById('lightboxPrev').addEventListener('click', () => showSlide(lbIndex - 1))
+  document.getElementById('lightboxNext').addEventListener('click', () => showSlide(lbIndex + 1))
+  lightboxEl.addEventListener('click', (e) => { if (e.target === lightboxEl) closeLightbox() })
+  window.addEventListener('keydown', (e) => {
+    if (!lbOpen) return
+    if (e.key === 'Escape') closeLightbox()
+    if (e.key === 'ArrowLeft') showSlide(lbIndex - 1)
+    if (e.key === 'ArrowRight') showSlide(lbIndex + 1)
+  })
+}
+
 boot()
