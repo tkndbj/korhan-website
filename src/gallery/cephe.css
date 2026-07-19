@@ -98,6 +98,17 @@ img {
   text-transform: uppercase;
   color: var(--ink);
   text-decoration: none;
+  padding: 0.6rem 1.05rem;
+  background: rgba(12, 11, 9, 0.55);
+  border: 1px solid rgba(236, 231, 219, 0.22);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color 0.3s, background 0.3s;
+}
+.chrome__back:hover {
+  border-color: var(--gold, #d8a24a);
+  background: rgba(12, 11, 9, 0.75);
 }
 .chrome__back-arrow {
   transition: transform 0.35s var(--ease-out);
