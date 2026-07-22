@@ -1026,6 +1026,44 @@ html.reduce-motion .service {
 }
 
 /* =========================================================================
+   About (company info)
+   ========================================================================= */
+.about {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  margin-bottom: clamp(2.5rem, 6vh, 4.5rem);
+}
+
+.about__heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  margin-bottom: 1.1rem;
+}
+
+.about__block p {
+  color: var(--ink-dim);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.about__block p + p {
+  margin-top: 1rem;
+}
+
+.pillars--about {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pillars--about .pillar__desc {
+  max-width: none;
+}
+
+/* =========================================================================
    Contact
    ========================================================================= */
 .panel--contact {
@@ -1230,6 +1268,7 @@ html.reduce-motion .service {
 @media (max-width: 960px) {
   .stats { grid-template-columns: repeat(2, 1fr); }
   .pillars { grid-template-columns: 1fr; }
+  .about { grid-template-columns: 1fr; }
   .service { grid-template-columns: 3rem 1fr 2rem; }
   .service__desc { display: none; }
   .contact-grid { grid-template-columns: 1fr; }
