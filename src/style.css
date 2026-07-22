@@ -1046,7 +1046,7 @@ html.reduce-motion .service {
 }
 
 .about__block p {
-  color: var(--ink-dim);
+  color: #fff;
   font-size: 0.95rem;
   line-height: 1.7;
 }
